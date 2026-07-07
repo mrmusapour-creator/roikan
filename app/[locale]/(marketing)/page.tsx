@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function LandingPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const dictionary = await getDictionary(locale);
   const landing = dictionary.landing;
 

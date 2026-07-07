@@ -11,6 +11,7 @@ import { prisma } from "@/lib/prisma";
 import { formatPercent } from "@/lib/utils";
 
 export default async function DashboardPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const dictionary = await getDictionary(locale);
   const user = await requireUser();
   const [profile, workout, measurements, progress] = await Promise.all([

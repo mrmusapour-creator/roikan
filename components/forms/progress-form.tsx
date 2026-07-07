@@ -23,8 +23,7 @@ type ProgressLabels = {
 };
 
 export function ProgressForm({ locale, labels, saveLabel }: { locale: Locale; labels: ProgressLabels; saveLabel: string }) {
-  const [state, action] = useActionState(saveProgressAction.bind(null, locale), { ok: false });
-
+const [state, action] = useActionState(saveProgressAction.bind(null, locale), { ok: false, message: "" });
   return (
     <Card>
       <form action={action} className="grid gap-4 sm:grid-cols-2">

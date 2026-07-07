@@ -24,7 +24,8 @@ type RegisterFormProps = {
 };
 
 export function RegisterForm({ locale, labels }: RegisterFormProps) {
-  const [state, action] = useActionState(registerAction.bind(null, locale), { ok: false });
+  const [state, action] = useActionState(registerAction.bind(null, locale), { ok: false, message: "" });
+
 
   return (
     <Card className="mx-auto w-full max-w-md">

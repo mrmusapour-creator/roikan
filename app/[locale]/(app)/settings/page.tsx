@@ -6,6 +6,7 @@ import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export default async function SettingsPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const dictionary = await getDictionary(locale);
   const sessionUser = await requireUser();
   const user = await prisma.user.findUniqueOrThrow({ where: { id: sessionUser.id } });

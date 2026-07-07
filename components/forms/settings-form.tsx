@@ -19,7 +19,7 @@ export function SettingsForm({
   userLocale: Locale;
   labels: { name: string; language: string; english: string; persian: string; save: string };
 }) {
-  const [state, action] = useActionState(updateSettingsAction.bind(null, locale), { ok: false });
+  const [state, action] = useActionState(updateSettingsAction.bind(null, locale), { ok: false, message: "" });
 
   return (
     <Card className="max-w-xl">

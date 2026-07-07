@@ -7,6 +7,7 @@ import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export default async function ProgressPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const dictionary = await getDictionary(locale);
   const user = await requireUser();
   const entries = await prisma.progressEntry.findMany({

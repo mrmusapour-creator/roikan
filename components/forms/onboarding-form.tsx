@@ -40,7 +40,7 @@ type OnboardingLabels = {
 };
 
 export function OnboardingForm({ locale, labels }: { locale: Locale; labels: OnboardingLabels }) {
-  const [state, action] = useActionState(completeOnboardingAction.bind(null, locale), { ok: false });
+  const [state, action] = useActionState(completeOnboardingAction.bind(null, locale), { ok: false, message: "" });
 
   return (
     <form action={action} className="grid gap-5 lg:grid-cols-[1fr_0.8fr]">
