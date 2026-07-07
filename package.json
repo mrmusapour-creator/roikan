@@ -2,8 +2,7 @@
   "name": "human-transformation-platform",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@11.7.0",
-  "scripts": {
+    "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
