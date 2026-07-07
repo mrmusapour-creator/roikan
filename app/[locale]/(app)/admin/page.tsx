@@ -7,8 +7,16 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export default async function AdminPage({ params }: { params: { locale: Locale } }) {
-  const dictionary = await getDictionary(params.locale);
+type Props = {
+  params: Promise<{
+    locale: Locale;
+  }>;
+};
+
+export default async function AdminPage({ params }: Props) {
+  const { locale } = await params;
+
+  const dictionary = await getDictionary(locale);
   const user = await requireUser();
 
   if (user.role !== "ADMIN") {
