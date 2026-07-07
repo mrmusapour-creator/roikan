@@ -1,0 +1,24 @@
+{
+  "name": "AstraForm",
+  "short_name": "AstraForm",
+  "description": "AI-powered human transformation platform.",
+  "start_url": "/en/dashboard",
+  "display": "standalone",
+  "background_color": "#07100d",
+  "theme_color": "#07100d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
