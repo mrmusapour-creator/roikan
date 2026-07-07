@@ -10,19 +10,19 @@ export default async function ProtectedLayout({
   params
 }: {
   children: React.ReactNode;
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
   const session = await getCurrentSession();
 
   if (!session?.user) {
-    redirect(`/${params.locale}/login`);
+    redirect(`/${locale}/login`);
   }
 
-  const dictionary = await getDictionary(params.locale);
+  const dictionary = await getDictionary(locale);
 
   return (
     <AppShell
-      locale={params.locale}
+      locale={locale}
       dictionary={dictionary}
       userName={session.user.name}
       isAdmin={session.user.role === "ADMIN"}

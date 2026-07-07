@@ -7,8 +7,8 @@ import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import type { GeneratedWorkoutPlan } from "@/features/plans/ai-provider";
 
-export default async function WorkoutPage({ params }: { params: { locale: Locale } }) {
-  const dictionary = await getDictionary(params.locale);
+export default async function WorkoutPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const dictionary = await getDictionary(locale);
   const user = await requireUser();
   const plan = await prisma.workoutPlan.findFirst({
     where: { userId: user.id, active: true },
@@ -22,7 +22,7 @@ export default async function WorkoutPage({ params }: { params: { locale: Locale
       {!content ? (
         <Card>
           <CardDescription>{dictionary.plans.empty}</CardDescription>
-          <LinkButton href={`/${params.locale}/onboarding`} className="mt-4">
+          <LinkButton href={`/${locale}/onboarding`} className="mt-4">
             {dictionary.common.continue}
           </LinkButton>
         </Card>

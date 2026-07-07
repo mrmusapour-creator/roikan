@@ -6,8 +6,8 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export default async function SubscriptionPage({ params }: { params: { locale: Locale } }) {
-  const dictionary = await getDictionary(params.locale);
+export default async function SubscriptionPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const dictionary = await getDictionary(locale);
   const user = await requireUser();
   const subscription = await prisma.subscription.findUnique({ where: { userId: user.id } });
 

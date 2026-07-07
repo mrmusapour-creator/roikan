@@ -10,8 +10,8 @@ import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatPercent } from "@/lib/utils";
 
-export default async function DashboardPage({ params }: { params: { locale: Locale } }) {
-  const dictionary = await getDictionary(params.locale);
+export default async function DashboardPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const dictionary = await getDictionary(locale);
   const user = await requireUser();
   const [profile, workout, measurements, progress] = await Promise.all([
     prisma.profile.findUnique({ where: { userId: user.id } }),
@@ -33,7 +33,7 @@ export default async function DashboardPage({ params }: { params: { locale: Loca
             <CardTitle>{dictionary.dashboard.onboardingRequired}</CardTitle>
             <CardDescription>{dictionary.onboarding.subtitle}</CardDescription>
           </CardHeader>
-          <LinkButton href={`/${params.locale}/onboarding`}>
+          <LinkButton href={`/${locale}/onboarding`}>
             {dictionary.common.continue}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </LinkButton>
@@ -51,7 +51,7 @@ export default async function DashboardPage({ params }: { params: { locale: Loca
             <CardDescription>{workout?.summary ?? dictionary.plans.empty}</CardDescription>
           </CardHeader>
           {workout ? (
-            <LinkButton href={`/${params.locale}/workout`} variant="outline">
+            <LinkButton href={`/${locale}/workout`} variant="outline">
               {dictionary.nav.workout}
             </LinkButton>
           ) : null}
@@ -61,7 +61,7 @@ export default async function DashboardPage({ params }: { params: { locale: Loca
             <CardTitle>{dictionary.nav.progress}</CardTitle>
             <CardDescription>{dictionary.progress.subtitle}</CardDescription>
           </CardHeader>
-          <LinkButton href={`/${params.locale}/progress`} variant="secondary">
+          <LinkButton href={`/${locale}/progress`} variant="secondary">
             {dictionary.nav.progress}
           </LinkButton>
         </Card>

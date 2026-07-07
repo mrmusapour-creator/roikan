@@ -6,8 +6,8 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export default async function ProgressPage({ params }: { params: { locale: Locale } }) {
-  const dictionary = await getDictionary(params.locale);
+export default async function ProgressPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const dictionary = await getDictionary(locale);
   const user = await requireUser();
   const entries = await prisma.progressEntry.findMany({
     where: { userId: user.id },
@@ -19,7 +19,7 @@ export default async function ProgressPage({ params }: { params: { locale: Local
     <>
       <PageHeader title={dictionary.progress.title} subtitle={dictionary.progress.subtitle} />
       <div className="grid gap-6 lg:grid-cols-[1fr_0.85fr]">
-        <ProgressForm locale={params.locale} labels={dictionary.progress} saveLabel={dictionary.common.save} />
+        <ProgressForm locale={locale} labels={dictionary.progress} saveLabel={dictionary.common.save} />
         <Card>
           <CardHeader>
             <CardTitle>{dictionary.nav.progress}</CardTitle>
@@ -29,7 +29,7 @@ export default async function ProgressPage({ params }: { params: { locale: Local
             {entries.map((entry) => (
               <div key={entry.id} className="rounded-md border border-border bg-background/40 p-3 text-sm">
                 <div className="flex justify-between">
-                  <span>{entry.date.toLocaleDateString(params.locale)}</span>
+                  <span>{entry.date.toLocaleDateString(locale)}</span>
                   <span className="text-muted-foreground">
                     {[entry.workoutCompleted, entry.nutritionAdherent].filter(Boolean).length}/2
                   </span>

@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   title: "AI Transformation Platform"
 };
 
-export default async function LandingPage({ params }: { params: { locale: Locale } }) {
-  const dictionary = await getDictionary(params.locale);
+export default async function LandingPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const dictionary = await getDictionary(locale);
   const landing = dictionary.landing;
 
   return (
@@ -28,11 +28,11 @@ export default async function LandingPage({ params }: { params: { locale: Locale
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{landing.subtitle}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <LinkButton href={`/${params.locale}/register`}>
+            <LinkButton href={`/${locale}/register`}>
               {landing.cta}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </LinkButton>
-            <LinkButton href={`/${params.locale}/login`} variant="outline">
+            <LinkButton href={`/${locale}/login`} variant="outline">
               {landing.secondary}
             </LinkButton>
           </div>

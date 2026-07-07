@@ -7,8 +7,8 @@ import { requireUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import type { GeneratedNutritionPlan } from "@/features/plans/ai-provider";
 
-export default async function NutritionPage({ params }: { params: { locale: Locale } }) {
-  const dictionary = await getDictionary(params.locale);
+export default async function NutritionPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const dictionary = await getDictionary(locale);
   const user = await requireUser();
   const plan = await prisma.nutritionPlan.findFirst({
     where: { userId: user.id, active: true },

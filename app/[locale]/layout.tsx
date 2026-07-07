@@ -6,21 +6,31 @@ export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "fa" }];
 }
 
-export default function LocaleLayout({
-  children,
-  params
-}: {
+type Props = {
   children: React.ReactNode;
-  params: { locale: string };
-}) {
-  if (!isLocale(params.locale)) {
+  params: Promise<{
+    locale: string;
+  }>;
+};
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: Props) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
     notFound();
   }
 
-  const locale = params.locale as Locale;
+  const currentLocale = locale as Locale;
 
   return (
-    <div lang={locale} dir={localeDirections[locale]} className="min-h-screen">
+    <div
+      lang={currentLocale}
+      dir={localeDirections[currentLocale]}
+      className="min-h-screen"
+    >
       {children}
     </div>
   );
